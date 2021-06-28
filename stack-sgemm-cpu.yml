@@ -1,0 +1,25 @@
+provider:
+  name: openfaas
+  gateway: http://gateway
+
+functions:
+  sgemmcpu:
+    skip_build: false
+    image: user/sgemmcpu:latest
+    fprocess: "/test"
+    annotations:
+      com.openfaas.profile: x86
+    labels:
+      com.openfaas.scale.min: 1
+      com.openfaas.scale.max: 100
+      com.openfaas.scale.factor: 80
+    limits:
+      cpu: 100m
+    requests:
+      cpu: 100m
+      memory: 128Mi 
+    environment:
+      sleep_duration: 10
+      read_timeout: "5s"
+      write_timeout: "5s"
+      exec_timeout: "60s"
